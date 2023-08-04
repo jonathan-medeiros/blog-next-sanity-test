@@ -12,4 +12,4 @@ export const client = createClient({
 });
 
 // Add cachedClient export
-//export const cachedClient = cache(client.fetch.bind(client));
+export const cachedClient = cache(client.fetch.bind(client));

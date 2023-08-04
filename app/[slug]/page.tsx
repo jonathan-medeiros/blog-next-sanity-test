@@ -3,17 +3,17 @@
 import { SanityDocument } from "@sanity/client";
 import Post from "@/app/_components/Post";
 import { postPathsQuery, postQuery } from "@/sanity/lib/queries";
-import { client } from "@/sanity/lib/client";
+import { cachedClient } from "@/sanity/lib/client";
 
 // Prepare Next.js to know which routes already exist
-// export async function generateStaticParams() {
-//   const posts = await cachedClient(postPathsQuery);
+export async function generateStaticParams() {
+  const posts = await cachedClient(postPathsQuery);
 
-//   return posts;
-// }
+  return posts;
+}
 
-export default async function Page() {
-  const post = await client.fetch(postQuery);
-  
+export default async function Page({ params }: { params: any }) {
+  const post = await cachedClient<SanityDocument>(postQuery, params);
+
   return <Post post={post} />;
 }
